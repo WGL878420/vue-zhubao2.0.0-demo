@@ -1,4 +1,6 @@
-export const HOST = 'http://localhost:3000';
+// http://localhost:3000
+// http://149.28.129.145:3000
+export var HOST = 'http://149.28.129.145:3000';
 
 export const url_getSwipe = '/web/getSwipe';
 

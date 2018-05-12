@@ -51,8 +51,23 @@ export default new Router({
       component: aixiuList
     },
     {
-      path: '/orderList/:page',
-      name: 'orderList',
+      path: '/orderListAll/:page',
+      name: 'orderListAll',
+      component: orderList
+    },
+    {
+      path: '/orderListNoPay/:page',
+      name: 'orderListNoPay',
+      component: orderList
+    },
+    {
+      path: '/orderListPay/:page',
+      name: 'orderListPay',
+      component: orderList
+    },
+    {
+      path: '/orderListWait/:page',
+      name: 'orderListWait',
       component: orderList
     }
   ]

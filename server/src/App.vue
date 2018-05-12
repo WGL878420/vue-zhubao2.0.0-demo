@@ -8,12 +8,12 @@
     </Row>
 
     <Row style="height: 80vh;">
-    <Col span="5" style="max-height: 100%;overflow-y: auto;overflow-x: hidden;">
-    <Menu :theme="'light'" active-name="1-1" :open-names="[1]">
+    <Col span="5" class="inner-container" style="max-height: 100%;overflow-y: auto;overflow-x: hidden;">
+    <Menu :theme="'light'" :active-name="rp" :open-names="[rp]">
 
       <template v-for="(v,k) in navData">
 
-        <Submenu :name="k+1">
+        <Submenu :name="rp">
 
           <template slot="title">
             <Icon type="ios-paper"></Icon>
@@ -21,7 +21,7 @@
           </template>
 
           <template v-for="(vv,kk) in v.item">
-            <MenuItem :name="`${k+1}-${kk+1}`" @click.native="routerPush(vv)">{{vv}}</MenuItem>
+            <MenuItem :name="`/${vv.routeName}`" @click.native="routerPush(vv.navName)">{{vv.navName}}</MenuItem>
           </template>
 
         </Submenu>
@@ -37,13 +37,6 @@
 
     </Row>
 
-<!--     <Row>
-      <Col>
-        <div class="layout-copy">
-            2011-2017 &copy; TalkingData
-        </div>
-      </Col>
-    </Row> -->
   </div>
 </template>
 
@@ -52,18 +45,49 @@ export default {
   name: 'app',
   data () {
     return {
+      rp: '',
       navData: [{
         title: '商品管理',
-        item: ['轮播图','商品分类','添加/修改','查看商品']
+        item: [{
+          navName: '轮播图',
+          routeName: 'addSwipe'
+        },{
+          navName: '商品分类',
+          routeName: 'goodsCla'
+        },{
+          navName: '添加/修改',
+          routeName: 'addGoods'
+        },{
+          navName: '查看商品',
+          routeName: 'GoodsList'
+        }]
       },{
         title: '用户管理',
-        item: ['用户列表']
+        item: [{
+          navName: '用户列表',
+          routeName: 'user'
+        }]
       },{
         title: '买家秀',
-        item: ['买家秀列表']
+        item: [{
+          navName: '买家秀列表',
+          routeName: 'aixiuList'
+        }]
       },{
         title: '订单管理',
-        item: ['全部订单','待付款','待发货','待收货']
+        item: [{
+          navName: '全部订单',
+          routeName: 'orderListAll'
+        },{
+          navName: '待付款',
+          routeName: 'orderListNoPay'
+        },{
+          navName: '待发货',
+          routeName: 'orderListPay'
+        },{
+          navName: '待收货',
+          routeName: 'orderListWait'
+        }]
       }]
     }
   },
@@ -90,16 +114,16 @@ export default {
           this.$router.push({name:'aixiuList', params: {page: 0}})
           break;
         case '全部订单':
-          this.$router.push({name:'orderList', params: {page: 0}, query: {orderStatus: 0}})
+          this.$router.push({name:'orderListAll', params: {page: 0}, query: {orderStatus: 0}})
           break;
         case '待付款':
-          this.$router.push({name:'orderList', params: {page: 0}, query: {orderStatus: 1}})
+          this.$router.push({name:'orderListNoPay', params: {page: 0}, query: {orderStatus: 1}})
           break;
         case '待发货':
-          this.$router.push({name:'orderList', params: {page: 0}, query: {orderStatus: 2}})
+          this.$router.push({name:'orderListPay', params: {page: 0}, query: {orderStatus: 2}})
           break;
         case '待收货':
-          this.$router.push({name:'orderList', params: {page: 0}, query: {orderStatus: 3}})
+          this.$router.push({name:'orderListWait', params: {page: 0}, query: {orderStatus: 3}})
           break;
         default:
           console.log('default')
@@ -107,7 +131,14 @@ export default {
     }
   },
   created: function () {
-
+    let strIdx = this.$route.path.indexOf('/', 2)
+    console.log(strIdx)
+    if (strIdx !== -1) {
+      this.rp = this.$route.path.slice(0, strIdx)
+    } else {
+      this.rp = this.$route.path
+    }
+    console.log(this.rp)
   }
 }
 </script>
@@ -117,6 +148,11 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+ /* for Chrome */
+.inner-container::-webkit-scrollbar {
+    display: none;
 }
 
 /*.layout-copy{

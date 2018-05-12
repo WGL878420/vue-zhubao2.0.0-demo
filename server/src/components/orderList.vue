@@ -137,7 +137,7 @@ export default {
         }
       }],
       tableLoading: false,
-      orderListNum: null,
+      orderListNum: 1,
       modal: false
     }
   },
@@ -161,7 +161,7 @@ export default {
       })
     },
     changePageNum (index) {
-      this.$router.push({name:'orderList', params: {page: index-1}, query: {orderStatus: this.$route.query.orderStatus}});
+      this.$router.push({name: this.$route.name, params: {page: index-1}, query: {orderStatus: this.$route.query.orderStatus}});
     },
     remove (index, _id) {
       this.orderList.splice(index, 1);
@@ -193,7 +193,8 @@ export default {
       }
     }
   },
-  created: function () {
+  created () {
+    console.log('created')
     this.getOrderList();
   },
   watch: {

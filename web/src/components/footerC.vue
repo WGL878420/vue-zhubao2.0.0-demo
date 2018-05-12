@@ -3,9 +3,9 @@
   	<nav class="navBar" v-if="$store.state.showfooterC">
   		<template v-for="(val,idx) in navData">
   			<div class="bar-item" v-on:click="addClass(val.titleName,idx)">
-  				<img v-if="!(idx == onCtrl)" :src="val.imgUrl" alt="">
+  				<img v-if="!(val.idx == $route.path)" :src="val.imgUrl" alt="">
   				<img v-else :src="val.imgUrlActive" alt="">
-  				<a :class="idx == onCtrl ? 'on' : '' ">{{val.titleName}}</a>
+          <a :class="val.idx == $route.path ? 'on' : '' ">{{val.titleName}}</a>
   			</div>
   		</template>
   	</nav>
@@ -15,22 +15,22 @@
 <script>
 
 var navData = [{
-		idx: 0,
+		idx: '/',
 		titleName: '首页',
 		imgUrl: 'static/dist/images/duohao.png',
 		imgUrlActive: 'static/dist/images/duohao-active.png'
 	},{
-		idx: 1,
+		idx: '/mall',
 		titleName: '分类',
 		imgUrl: 'static/dist/images/duohao.png',
 		imgUrlActive: 'static/dist/images/duohao-active.png'
 	},{
-		idx: 2,
+		idx: '/aixiu',
 		titleName: '爱秀',
 		imgUrl: 'static/dist/images/aishow.png',
 		imgUrlActive: 'static/dist/images/aishow-active.png'
 	},{
-		idx: 3,
+		idx: '/member',
 		titleName: '会员中心',
 		imgUrl: 'static/dist/images/gerenzhongxin.png',
 		imgUrlActive: 'static/dist/images/gerenzhongxin-active.png'
@@ -71,6 +71,9 @@ export default {
   				break;
   		}
   	}
+  },
+  created () {
+    console.log(this.$route.path)
   }
 }
 </script>

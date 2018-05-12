@@ -1,4 +1,4 @@
-var orderModels = require('../models/Order').orderModels;
+var orderModels = require('../models/order').orderModels;
 
 var methods_orderStatusChange = function (_id, orderStatus, orderStatueText, res) {
 	
